@@ -4,3 +4,6 @@ node_modules/
 # Builds
 dist/
 build/  
+
+# Archivos de entorno
+.env
