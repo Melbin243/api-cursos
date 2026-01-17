@@ -1,5 +1,6 @@
 package com.api_cursos.mapper;
 
+import com.api_cursos.dto.estudiante.EstudianteDetalleResponse;
 import com.api_cursos.dto.estudiante.EstudianteRequest;
 import com.api_cursos.dto.estudiante.EstudianteResponse;
 import com.api_cursos.persistence.entity.Curso;
@@ -16,6 +17,17 @@ public class EstudianteMapper {
         if (estudiante == null) return null;
 
         return new EstudianteResponse(
+                estudiante.getId(),
+                estudiante.getNombre(),
+                estudiante.getApellido(),
+                estudiante.getEmail()
+        );
+    }
+
+    public EstudianteDetalleResponse toDetalle(Estudiante estudiante) {
+        if (estudiante == null) return null;
+
+        return new EstudianteDetalleResponse(
                 estudiante.getId(),
                 estudiante.getNombre(),
                 estudiante.getApellido(),

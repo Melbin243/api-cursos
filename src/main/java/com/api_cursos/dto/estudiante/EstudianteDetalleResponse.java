@@ -2,10 +2,11 @@ package com.api_cursos.dto.estudiante;
 
 import java.util.List;
 
-public record EstudianteRequest(
+public record EstudianteDetalleResponse(
+        Long id,
         String nombre,
         String apellido,
         String email,
-        List<Long> cursosIds
+        List<String> cursos
 ) {
 }
