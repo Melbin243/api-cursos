@@ -44,11 +44,13 @@ public class EstudianteServiceImpl implements EstudianteService {
     public EstudianteResponse create(EstudianteRequest estudiante) {
         Estudiante nuevoEstudiante = estudianteMapper.toEntity(estudiante);
 
-        for (Long id : estudiante.cursosIds()) {
-            Curso curso = cursoRepository.findById(id)
-                    .orElseThrow(() -> new RuntimeException("Curso " + id + " no encontrado"));
+        if (estudiante.cursosIds() != null ) {
+            for (Long id : estudiante.cursosIds()) {
+                Curso curso = cursoRepository.findById(id)
+                        .orElseThrow(() -> new RuntimeException("Curso " + id + " no encontrado"));
 
-            nuevoEstudiante.getCursos().add(curso);
+                nuevoEstudiante.getCursos().add(curso);
+            }
         }
 
         return estudianteMapper.toResponse(
