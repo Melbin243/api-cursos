@@ -44,7 +44,7 @@ public class ProfesorMapper {
         );
     }
 
-    public Profesor toEntity(ProfesorRequest request, List<Curso> cursos) {
+    public Profesor toEntity(ProfesorRequest request) {
         if (request == null) return null;
 
         Profesor profesor = new Profesor();
@@ -54,7 +54,6 @@ public class ProfesorMapper {
         profesor.setEmail(request.email());
         profesor.setProfesion(request.profesion());
         profesor.setTelefono(request.telefono());
-        profesor.setCursos(cursos != null ? cursos : new ArrayList<>());
 
         return profesor;
     }
@@ -62,12 +61,28 @@ public class ProfesorMapper {
     public void updateEntity(ProfesorRequest request, Profesor profesor) {
         if (request == null || profesor == null) return;
 
-        profesor.setDni(request.dni());
-        profesor.setNombre(request.nombre());
-        profesor.setApellido(request.apellido());
-        profesor.setEmail(request.email());
-        profesor.setProfesion(request.profesion());
-        profesor.setTelefono(request.telefono());
+        if (request.dni() != null) {
+            profesor.setDni(request.dni());
+        }
+        if (request.nombre() != null) {
+            profesor.setNombre(request.nombre());
+        }
+        if (request.apellido() != null) {
+            profesor.setApellido(request.apellido());
+
+        }
+        if (request.email() != null) {
+            profesor.setEmail(request.email());
+
+        }
+        if (request.profesion() != null) {
+            profesor.setProfesion(request.profesion());
+
+        }
+        if (request.telefono() != null) {
+            profesor.setTelefono(request.telefono());
+
+        }
 
     }
 
