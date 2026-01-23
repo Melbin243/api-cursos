@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.melbin</groupId>
-	<artifactId>api-cursos</artifactId>
+	<artifactId>api-courses</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>api-cursos</name>
-	<description>Api Rest para gestion de cursos y alumnos</description>
+	<name>api-courses</name>
+	<description>Api Rest para gestion de courses y alumnos</description>
 	<url/>
 	<licenses>
 		<license/>
