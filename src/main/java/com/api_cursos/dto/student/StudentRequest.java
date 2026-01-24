@@ -1,11 +1,14 @@
 package com.api_cursos.dto.student;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 import java.util.List;
 
 public record StudentRequest(
-        String name,
-        String lastName,
-        String email,
+        @NotBlank String name,
+        @NotBlank String lastName,
+        @Email String email,
         List<Long> courseIds
 ) {
 }

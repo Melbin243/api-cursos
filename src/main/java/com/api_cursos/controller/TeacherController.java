@@ -5,6 +5,7 @@ import com.api_cursos.dto.teacher.TeacherRequest;
 import com.api_cursos.dto.teacher.TeacherResponse;
 import com.api_cursos.service.TeacherService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class TeacherController {
     }
 
     @PostMapping
-    public ResponseEntity<TeacherResponse> create(@RequestBody TeacherRequest teacherRequest,
+    public ResponseEntity<TeacherResponse> create(@Valid  @RequestBody TeacherRequest teacherRequest,
                                                   HttpServletRequest req) {
         TeacherResponse teacher = teacherService.create(teacherRequest);
 
@@ -46,7 +47,7 @@ public class TeacherController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TeacherResponse> update(@PathVariable Long id,
+    public ResponseEntity<TeacherResponse> update(@Valid @PathVariable Long id,
                                                   @RequestBody TeacherRequest request) {
         TeacherResponse updatedTeacher = teacherService.update(id, request);
 

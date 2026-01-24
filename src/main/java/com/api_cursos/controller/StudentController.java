@@ -5,6 +5,7 @@ import com.api_cursos.dto.student.StudentRequest;
 import com.api_cursos.dto.student.StudentResponse;
 import com.api_cursos.service.StudentService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,7 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<StudentResponse> create(@RequestBody StudentRequest studentRequest,
+    public ResponseEntity<StudentResponse> create(@Valid  @RequestBody StudentRequest studentRequest,
                                                   HttpServletRequest req) {
         StudentResponse newStudent = studentService.create(studentRequest);
 
@@ -46,7 +47,7 @@ public class StudentController {
 
     @PutMapping("/{id}")
     public ResponseEntity<StudentResponse> update(@PathVariable Long id,
-                                                  @RequestBody StudentRequest request){
+                                                  @Valid @RequestBody StudentRequest request){
         StudentResponse updatedStudent = studentService.update(id, request);
         return ResponseEntity.ok(updatedStudent);
     }

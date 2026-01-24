@@ -5,9 +5,7 @@ import com.api_cursos.dto.teacher.TeacherDetailResponse;
 import com.api_cursos.dto.teacher.TeacherRequest;
 import com.api_cursos.dto.teacher.TeacherResponse;
 import com.api_cursos.mapper.TeacherMapper;
-import com.api_cursos.persistence.entity.Course;
 import com.api_cursos.persistence.entity.Teacher;
-import com.api_cursos.persistence.repository.CourseRepository;
 import com.api_cursos.persistence.repository.TeacherRepository;
 import com.api_cursos.service.TeacherService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +20,6 @@ public class TeacherServiceImpl implements TeacherService {
 
     private final TeacherRepository teacherRepository;
     private final TeacherMapper teacherMapper;
-    private final CourseRepository courseRepository;
 
 
     @Override
@@ -55,30 +52,6 @@ public class TeacherServiceImpl implements TeacherService {
     public TeacherResponse update(Long id, TeacherRequest request) {
         Teacher teacher = teacherRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Profesor no encontrado"));
-
-
-        if (request.courseIds() != null) {
-
-            // Limpiar los cursos antiguos (desvincular)
-            teacher.getCourses().forEach(course -> course.setTeacher(null));
-            teacher.getCourses().clear();
-
-            List<Course> newCourses = courseRepository.findAllById(request.courseIds());
-
-            if (newCourses.size() != request.courseIds().size()) {
-                throw new RuntimeException("Uno o más IDs de cursos son inválidos");
-            }
-
-            newCourses.forEach(course -> {
-                if (course.getTeacher() != null && !course.getTeacher().getId().equals(id)) {
-
-                    throw new RuntimeException("El curso " + course.getName() + " ya tiene un teacher asignado");
-                }
-                course.setTeacher(teacher);
-            });
-
-            teacher.setCourses(newCourses);
-        }
 
         teacherMapper.updateEntity(request, teacher);
 

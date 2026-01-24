@@ -55,29 +55,29 @@ public class TeacherMapper {
         return teacher;
     }
 
-    public void updateEntity(TeacherRequest request, Teacher teacher) {
-        if (request == null || teacher == null) return;
+    public void updateEntity(TeacherRequest newTeacher, Teacher oldTeacher) {
+        if (newTeacher == null || oldTeacher == null) return;
 
-        if (request.dni() != null) {
-            teacher.setDni(request.dni());
+        if (newTeacher.dni() != null) {
+            oldTeacher.setDni(newTeacher.dni());
         }
-        if (request.name() != null) {
-            teacher.setName(request.name());
+        if (newTeacher.name() != null) {
+            oldTeacher.setName(newTeacher.name());
         }
-        if (request.lastName() != null) {
-            teacher.setLastName(request.lastName());
-
-        }
-        if (request.email() != null) {
-            teacher.setEmail(request.email());
+        if (newTeacher.lastName() != null) {
+            oldTeacher.setLastName(newTeacher.lastName());
 
         }
-        if (request.specialization() != null) {
-            teacher.setSpecialization(request.specialization());
+        if (newTeacher.email() != null) {
+            oldTeacher.setEmail(newTeacher.email());
 
         }
-        if (request.phone() != null) {
-            teacher.setPhone(request.phone());
+        if (newTeacher.specialization() != null) {
+            oldTeacher.setSpecialization(newTeacher.specialization());
+
+        }
+        if (newTeacher.phone() != null) {
+            oldTeacher.setPhone(newTeacher.phone());
 
         }
 

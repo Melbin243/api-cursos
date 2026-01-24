@@ -1,5 +1,6 @@
 package com.api_cursos.service.impl;
 
+import com.api_cursos.common.exception.ResourceNotFoundException;
 import com.api_cursos.dto.student.StudentDetailResponse;
 import com.api_cursos.dto.student.StudentRequest;
 import com.api_cursos.dto.student.StudentResponse;
@@ -34,7 +35,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentDetailResponse getById(Long id) {
         Student student = studentRepository.findByIdWithCourses(id)
-                .orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Estudiante no encontrado"));
 
         return studentMapper.toDetailResponse(student);
     }
@@ -47,7 +48,7 @@ public class StudentServiceImpl implements StudentService {
         if (request.courseIds() != null ) {
             for (Long id : request.courseIds()) {
                 Course course = courseRepository.findById(id)
-                        .orElseThrow(() -> new RuntimeException("Curso " + id + " no encontrado"));
+                        .orElseThrow(() -> new ResourceNotFoundException("Curso " + id + " no encontrado"));
 
                 newStudent.getCourses().add(course);
             }
@@ -62,7 +63,7 @@ public class StudentServiceImpl implements StudentService {
     @Transactional
     public StudentResponse update(Long id, StudentRequest request) {
         Student student = studentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Estudiante no encontrado"));
 
         studentMapper.updateEntity(request, student);
 
@@ -77,7 +78,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void delete(Long id) {
         Student student = studentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Estudiante " + id + " no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Estudiante " + id + " no encontrado"));
 
         studentRepository.delete(student);
     }

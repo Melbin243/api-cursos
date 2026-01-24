@@ -3,6 +3,7 @@ package com.api_cursos.controller;
 import com.api_cursos.dto.course.*;
 import com.api_cursos.service.CourseService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class CourseController {
     }
 
     @PostMapping
-    public ResponseEntity<CourseResponse> create(@RequestBody CourseRequest courseRequest, HttpServletRequest req) {
+    public ResponseEntity<CourseResponse> create(@Valid @RequestBody CourseRequest courseRequest, HttpServletRequest req) {
 
         CourseResponse cursoCreado = courseService.create(courseRequest);
 
@@ -43,14 +44,14 @@ public class CourseController {
     }
 
     @PostMapping("/enroll")
-    public ResponseEntity<EnrollmentResponse> enrollStudent(@RequestBody EnrollmentRequest request) {
+    public ResponseEntity<EnrollmentResponse> enrollStudent(@Valid @RequestBody EnrollmentRequest request) {
         EnrollmentResponse enrolledStudent = courseService.enrollStudent(request);
 
         return ResponseEntity.ok(enrolledStudent);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CourseResponse> update(@PathVariable Long id, @RequestBody CourseRequest request) {
+    public ResponseEntity<CourseResponse> update(@PathVariable Long id, @Valid @RequestBody CourseRequest request) {
         CourseResponse updatedCourse = courseService.update(id, request);
 
         return ResponseEntity.ok(updatedCourse);
